@@ -4,7 +4,9 @@ export const state = () => {
   }
 }
 
-export const getters = {}
+export const getters = {
+  articles: (state) => state.articles,
+}
 
 export const mutations = {
   setArticles(state, articles) {
