@@ -7,9 +7,26 @@
         </v-toolbar-title>
       </nuxt-link>
       <v-spacer></v-spacer>
-      <v-btn text :class="$style.register">ユーザー登録</v-btn>
-      <v-btn text :class="$style.login">ログイン</v-btn>
+
+      <!-- v-if で分岐する。 true だったら表示 -->
+      <template v-if="isSignedIn">
+        <nuxt-link to="/">
+          <v-btn text :class="$style.register">投稿する</v-btn>
+        </nuxt-link>
+        <v-btn text :class="$style.login">ログアウト</v-btn>
+      </template>
+
+      <!-- false だったら非表示 -->
+      <template v-else>
+        <nuxt-link to="sign_up">
+          <v-btn text :class="$style.register">ユーザー登録</v-btn>
+        </nuxt-link>
+        <nuxt-link to="sign_in">
+          <v-btn text :class="$style.login">ログイン</v-btn>
+        </nuxt-link>
+      </template>
     </v-app-bar>
+
     <v-main>
       <v-container fluid :class="$style.container">
         <nuxt />
@@ -17,6 +34,17 @@
     </v-main>
   </v-app>
 </template>
+
+<script>
+export default {
+  computed: {
+    // 認証しているか判断する為のフラグ
+    isSignedIn() {
+      return this.$store.getters['user/isSignedIn']
+    },
+  },
+}
+</script>
 
 <style lang="scss" module>
 .header_link {
