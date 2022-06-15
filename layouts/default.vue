@@ -13,7 +13,7 @@
         <nuxt-link to="/">
           <v-btn text :class="$style.register">投稿する</v-btn>
         </nuxt-link>
-        <v-btn text :class="$style.login">ログアウト</v-btn>
+        <v-btn text :class="$style.login" @click="signOut">ログアウト</v-btn>
       </template>
 
       <!-- false だったら非表示 -->
@@ -41,6 +41,12 @@ export default {
     // 認証しているか判断する為のフラグ
     isSignedIn() {
       return this.$store.getters['user/isSignedIn']
+    },
+  },
+  methods: {
+    signOut() {
+      this.$store.dispatch('user/signOut')
+      this.$router.push('/sign_in')
     },
   },
 }

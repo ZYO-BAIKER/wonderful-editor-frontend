@@ -52,4 +52,9 @@ export const actions = {
     commit('setHeaders', loginInfoHeaders)
     commit('setSignInState', true)
   },
+
+  signOut({ commit }) {
+    commit('resetHeaders')
+    commit('setSignInState', false)
+  },
 }
