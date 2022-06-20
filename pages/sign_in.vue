@@ -69,6 +69,8 @@ export default {
       }
     },
   },
+
+  middleware: ['before_auth'],
 }
 </script>
 
