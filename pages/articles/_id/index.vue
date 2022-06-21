@@ -11,6 +11,15 @@
           />
           <v-spacer></v-spacer>
           <template v-if="isShowBtn">
+            <v-btn
+              :class="$style.editBtn"
+              text
+              fab
+              small
+              @click="moveToEditArticlePage(article.id)"
+            >
+              <v-icon color="#3085DE">fas fa-edit</v-icon>
+            </v-btn>
             <v-btn text fab small @click="deleteArticle">
               <v-icon color="#3085DE">fas fa-trash-alt</v-icon>
             </v-btn>
@@ -73,6 +82,10 @@ export default {
         }
       }
     },
+
+    moveToEditArticlePage(id) {
+      this.$router.push(`/articles/${id}/edit`)
+    },
   },
 }
 </script>
@@ -100,5 +113,8 @@ export default {
 }
 .article_body {
   width: 100%;
+}
+.editBtn {
+  margin-right: 12px;
 }
 </style>
