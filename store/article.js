@@ -36,4 +36,8 @@ export const actions = {
     const article = response.data
     commit('setArticle', article)
   },
+
+  async deleteArticle(_, id) {
+    await this.$axios.delete(`api/v1/articles/${id}`)
+  },
 }

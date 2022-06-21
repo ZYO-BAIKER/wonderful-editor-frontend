@@ -10,9 +10,11 @@
             :auto-update="60"
           />
           <v-spacer></v-spacer>
-          <v-btn text fab small>
-            <v-icon color="#3085DE">fas fa-trash-alt</v-icon>
-          </v-btn>
+          <template v-if="isShowBtn">
+            <v-btn text fab small @click="deleteArticle">
+              <v-icon color="#3085DE">fas fa-trash-alt</v-icon>
+            </v-btn>
+          </template>
         </v-layout>
         <h1 :class="$style.article_title">{{ article.title }}</h1>
         <div :class="$style.article_body_container">
@@ -29,15 +31,19 @@
 export default {
   data() {
     return {
-      title: 'title',
-      body: '本文です',
-      user: { name: 'test' },
       isInitialized: false,
     }
   },
   computed: {
     article() {
       return this.$store.getters['article/article']
+    },
+
+    isShowBtn() {
+      const currentUserEmail = this.$store.getters['user/headers'].uid
+      const result = currentUserEmail === this.article?.user?.email
+
+      return result
     },
   },
 
@@ -51,6 +57,22 @@ export default {
       // 暫定的な Error 表示
       alert(err.response.statusText)
     }
+  },
+
+  methods: {
+    async deleteArticle() {
+      const result = confirm('この記事を削除してもよろしいですか？')
+
+      if (result) {
+        try {
+          await this.$store.dispatch('article/deleteArticle', this.article.id)
+          this.$router.push('/')
+        } catch (err) {
+          // 暫定的な Error 表示
+          alert(err.response.statusText)
+        }
+      }
+    },
   },
 }
 </script>
