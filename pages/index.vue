@@ -72,7 +72,7 @@ export default {
   }
 }
 .user_name {
-  font-size: 16px;
+  font-size: 17px;
 }
 .time_ago {
   margin-left: 10px;
